@@ -17,7 +17,16 @@ module.exports = {
         }
       },
       animation: {
+        'blob': 'blob 7s infinite',
         'pulse-slow': 'pulse 3s linear infinite',
+        'bounce-slow': 'bounce 3s infinite',
+        'spin-slow': 'spin 3s linear infinite',
+      },
+      backdropBlur: {
+        xs: '2px',
+      },
+      boxShadow: {
+        '3xl': '0 35px 60px -15px rgba(0, 0, 0, 0.3)',
       }
     },
   },

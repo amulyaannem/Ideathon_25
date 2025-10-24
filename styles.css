@@ -1,8 +1,9 @@
 /* Custom styles to complement Tailwind CSS */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
-/* Smooth transitions for all interactive elements */
 * {
-    transition: all 0.2s ease;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.3s ease;
 }
 
 /* Custom scrollbar */
@@ -12,51 +13,72 @@
 
 ::-webkit-scrollbar-track {
     background: #f1f1f1;
+    border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #c1c1c1;
-    border-radius: 4px;
+    background: linear-gradient(135deg, #10B981, #059669);
+    border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #a8a8a8;
+    background: linear-gradient(135deg, #059669, #047857);
 }
 
 /* Custom focus styles */
 input:focus, select:focus {
     outline: none;
-    ring: 2px;
-    ring-color: #10B981;
-    border-color: #10B981;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
 }
 
-/* Range slider customization */
-input[type="range"] {
-    -webkit-appearance: none;
-    height: 6px;
-    border-radius: 5px;
-    background: #d1d5db;
-    outline: none;
-}
-
-input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none;
+/* Custom range slider */
+.slider::-webkit-slider-thumb {
     appearance: none;
-    width: 18px;
-    height: 18px;
+    height: 20px;
+    width: 20px;
     border-radius: 50%;
-    background: #10B981;
+    background: linear-gradient(135deg, #10B981, #059669);
     cursor: pointer;
+    box-shadow: 0 2px 6px rgba(16, 185, 129, 0.4);
+    border: 2px solid white;
 }
 
-input[type="range"]::-moz-range-thumb {
-    width: 18px;
-    height: 18px;
+.slider::-moz-range-thumb {
+    height: 20px;
+    width: 20px;
     border-radius: 50%;
-    background: #10B981;
+    background: linear-gradient(135deg, #10B981, #059669);
     cursor: pointer;
-    border: none;
+    box-shadow: 0 2px 6px rgba(16, 185, 129, 0.4);
+    border: 2px solid white;
+}
+
+/* Blob animation */
+@keyframes blob {
+    0% {
+        transform: translate(0px, 0px) scale(1);
+    }
+    33% {
+        transform: translate(30px, -50px) scale(1.1);
+    }
+    66% {
+        transform: translate(-20px, 20px) scale(0.9);
+    }
+    100% {
+        transform: translate(0px, 0px) scale(1);
+    }
+}
+
+.animate-blob {
+    animation: blob 7s infinite;
+}
+
+.animation-delay-2000 {
+    animation-delay: 2s;
+}
+
+.animation-delay-4000 {
+    animation-delay: 4s;
 }
 
 /* Chart container styling */
@@ -67,33 +89,50 @@ input[type="range"]::-moz-range-thumb {
 
 /* Insight cards */
 .insight-card {
-    background: white;
+    background: linear-gradient(135deg, #ffffff, #f8fafc);
     border-left: 4px solid #10B981;
-    padding: 12px 16px;
-    margin-bottom: 12px;
-    border-radius: 0 8px 8px 0;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    padding: 20px;
+    margin-bottom: 16px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s ease;
+}
+
+.insight-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
 .insight-card.warning {
     border-left-color: #EF4444;
+    background: linear-gradient(135deg, #fef2f2, #fecaca);
 }
 
-/* Animation for the calculate button */
+/* Button animation */
 @keyframes pulse {
     0% {
         transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
     }
-    50% {
+    70% {
         transform: scale(1.05);
+        box-shadow: 0 0 0 10px rgba(16, 185, 129, 0);
     }
     100% {
         transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
     }
 }
 
 .calculating {
-    animation: pulse 1s infinite;
+    animation: pulse 2s infinite;
+}
+
+/* Glass morphism effect */
+.glass {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
 /* Responsive adjustments */
@@ -105,4 +144,65 @@ input[type="range"]::-moz-range-thumb {
     .input-section {
         grid-template-columns: 1fr;
     }
+    
+    header h1 {
+        font-size: 2.5rem;
+    }
+}
+
+/* Custom tooltip for charts */
+.chart-tooltip {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    pointer-events: none;
+    z-index: 100;
+}
+
+/* Loading animation */
+.loading-dots {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+}
+.loading-dots div {
+    position: absolute;
+    top: 33px;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background: #10B981;
+    animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+.loading-dots div:nth-child(1) {
+    left: 8px;
+    animation: loading-dots1 0.6s infinite;
+}
+.loading-dots div:nth-child(2) {
+    left: 8px;
+    animation: loading-dots2 0.6s infinite;
+}
+.loading-dots div:nth-child(3) {
+    left: 32px;
+    animation: loading-dots2 0.6s infinite;
+}
+.loading-dots div:nth-child(4) {
+    left: 56px;
+    animation: loading-dots3 0.6s infinite;
+}
+@keyframes loading-dots1 {
+    0% { transform: scale(0); }
+    100% { transform: scale(1); }
+}
+@keyframes loading-dots3 {
+    0% { transform: scale(1); }
+    100% { transform: scale(0); }
+}
+@keyframes loading-dots2 {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(24px, 0); }
 }
