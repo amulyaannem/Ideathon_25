@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoDataViz - Carbon Footprint Visualizer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-green-600 to-green-500 text-white shadow-lg">
+        <div class="container mx-auto px-4 py-6">
+            <h1 class="text-3xl font-bold text-center">EcoDataViz</h1>
+            <p class="text-center mt-2 text-green-100">Visualize Your Carbon Footprint</p>
+        </div>
+    </header>
+
+    <div class="container mx-auto px-4 py-8">
+        <!-- Introduction Section -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8 text-center">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">Understand Your Environmental Impact</h2>
+            <p class="text-gray-600 max-w-2xl mx-auto">
+                Enter your daily habits to see your carbon footprint visualized. 
+                Compare with global averages and discover how small changes can make a big difference.
+            </p>
+        </section>
+
+        <!-- Input Section -->
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <!-- Transportation Card -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+                    <span class="w-3 h-3 bg-blue-500 rounded-full mr-2"></span>
+                    Transportation
+                </h3>
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-gray-700 mb-1">Daily commute (km)</label>
+                        <input type="number" id="commuteDistance" class="w-full p-2 border border-gray-300 rounded" placeholder="e.g., 20" min="0">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 mb-1">Vehicle type</label>
+                        <select id="vehicleType" class="w-full p-2 border border-gray-300 rounded">
+                            <option value="car">Car</option>
+                            <option value="bus">Bus</option>
+                            <option value="bike">Bicycle</option>
+                            <option value="motorcycle">Motorcycle</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Diet Card -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+                    <span class="w-3 h-3 bg-red-500 rounded-full mr-2"></span>
+                    Diet
+                </h3>
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-gray-700 mb-1">Meat consumption</label>
+                        <select id="meatConsumption" class="w-full p-2 border border-gray-300 rounded">
+                            <option value="high">High (Daily)</option>
+                            <option value="medium">Medium (Few times a week)</option>
+                            <option value="low">Low (Vegetarian)</option>
+                            <option value="none">None (Vegan)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 mb-1">Local food percentage</label>
+                        <input type="range" id="localFood" min="0" max="100" value="50" class="w-full">
+                        <div class="flex justify-between text-sm text-gray-600">
+                            <span>0%</span>
+                            <span id="localFoodValue">50%</span>
+                            <span>100%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Energy Card -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+                    <span class="w-3 h-3 bg-yellow-500 rounded-full mr-2"></span>
+                    Energy Usage
+                </h3>
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-gray-700 mb-1">Monthly electricity (kWh)</label>
+                        <input type="number" id="electricityUsage" class="w-full p-2 border border-gray-300 rounded" placeholder="e.g., 300" min="0">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 mb-1">Heating type</label>
+                        <select id="heatingType" class="w-full p-2 border border-gray-300 rounded">
+                            <option value="naturalGas">Natural Gas</option>
+                            <option value="electric">Electric</option>
+                            <option value="renewable">Renewable</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lifestyle Card -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+                    <span class="w-3 h-3 bg-purple-500 rounded-full mr-2"></span>
+                    Lifestyle
+                </h3>
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-gray-700 mb-1">Flight hours per year</label>
+                        <input type="number" id="flightHours" class="w-full p-2 border border-gray-300 rounded" placeholder="e.g., 10" min="0">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 mb-1">Shopping habits</label>
+                        <select id="shoppingHabits" class="w-full p-2 border border-gray-300 rounded">
+                            <option value="high">High (Frequent new items)</option>
+                            <option value="medium">Medium (Occasional)</option>
+                            <option value="low">Low (Minimal, sustainable)</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Calculate Button -->
+        <div class="text-center mb-8">
+            <button id="calculateBtn" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg shadow-md transition duration-300">
+                Calculate My Carbon Footprint
+            </button>
+        </div>
+
+        <!-- Visualization Section -->
+        <section id="visualization" class="hidden bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Your Carbon Footprint Visualization</h2>
+            
+            <!-- Main Chart -->
+            <div class="mb-8">
+                <h3 class="text-xl font-semibold text-gray-700 mb-4">Your Carbon Emissions by Category</h3>
+                <div id="mainChart" class="bg-gray-50 p-4 rounded-lg"></div>
+            </div>
+            
+            <!-- Comparison Section -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <h3 class="text-xl font-semibold text-gray-700 mb-4">Comparison with Global Average</h3>
+                    <div id="comparisonChart" class="bg-gray-50 p-4 rounded-lg"></div>
+                </div>
+                
+                <!-- Impact of Changes -->
+                <div>
+                    <h3 class="text-xl font-semibold text-gray-700 mb-4">Impact of Sustainable Changes</h3>
+                    <div id="impactChart" class="bg-gray-50 p-4 rounded-lg"></div>
+                </div>
+            </div>
+            
+            <!-- Actionable Insights -->
+            <div class="mt-8">
+                <h3 class="text-xl font-semibold text-gray-700 mb-4">Actionable Insights</h3>
+                <div id="insights" class="bg-green-50 p-4 rounded-lg">
+                    <!-- Insights will be populated by JavaScript -->
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

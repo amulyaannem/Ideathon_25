@@ -1,0 +1,108 @@
+/* Custom styles to complement Tailwind CSS */
+
+/* Smooth transitions for all interactive elements */
+* {
+    transition: all 0.2s ease;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+/* Custom focus styles */
+input:focus, select:focus {
+    outline: none;
+    ring: 2px;
+    ring-color: #10B981;
+    border-color: #10B981;
+}
+
+/* Range slider customization */
+input[type="range"] {
+    -webkit-appearance: none;
+    height: 6px;
+    border-radius: 5px;
+    background: #d1d5db;
+    outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #10B981;
+    cursor: pointer;
+}
+
+input[type="range"]::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #10B981;
+    cursor: pointer;
+    border: none;
+}
+
+/* Chart container styling */
+.chart-container {
+    position: relative;
+    margin: auto;
+}
+
+/* Insight cards */
+.insight-card {
+    background: white;
+    border-left: 4px solid #10B981;
+    padding: 12px 16px;
+    margin-bottom: 12px;
+    border-radius: 0 8px 8px 0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.insight-card.warning {
+    border-left-color: #EF4444;
+}
+
+/* Animation for the calculate button */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.calculating {
+    animation: pulse 1s infinite;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+    
+    .input-section {
+        grid-template-columns: 1fr;
+    }
+}
